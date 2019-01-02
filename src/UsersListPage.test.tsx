@@ -4,6 +4,7 @@ import UsersListPage from './UsersListPage';
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 import { createShallow } from '@material-ui/core/test-utils';
+import { MemoryRouter, withRouter } from 'react-router-dom';
 
 const mockStore = configureStore([thunk]);
 const initialState = {
@@ -12,6 +13,8 @@ const initialState = {
   }
 };
 const store = mockStore(initialState);
+
+const UsersListPageWithRouter = withRouter(UsersListPage);
 
 describe('<UsersListPage />', () => {
   describe('render()', () => {
@@ -22,11 +25,21 @@ describe('<UsersListPage />', () => {
     });
 
     it('renders without crashing', () => {
-      const wrapper = shallow(<UsersListPage />, { context: { store } });
+      const wrapper = shallow(
+        <MemoryRouter>
+          <UsersListPageWithRouter />
+        </MemoryRouter>,
+        { context: { store } }
+      );
     });
 
     it('has the right child nodes', () => {
-      const wrapper = shallow(<UsersListPage />, { context: { store } });
+      const wrapper = shallow(
+        <MemoryRouter>
+          <UsersListPageWithRouter />
+        </MemoryRouter>,
+        { context: { store } }
+      );
       expect(wrapper.find('header')).toHaveLength(1);
       expect(wrapper.find('WithStyles(UsersTable)')).toHaveLength(1);
     });

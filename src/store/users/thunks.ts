@@ -1,29 +1,64 @@
 import { Dispatch, ActionCreator } from 'redux';
-import { fetchRequest, fetchSuccess, fetchError, UsersAction } from './actions';
+import {
+  fetchUsersRequest,
+  fetchUsersSuccess,
+  fetchUsersError,
+  fetchUserRequest,
+  fetchUserSuccess,
+  fetchUserError,
+  UsersAction,
+  noOp
+} from './actions';
 import { ThunkAction } from 'redux-thunk';
 import { ApplicationState } from '..';
+import {
+  IGithubAPIUsersResponse,
+  callGithubApiUsers,
+  callGithubApiUser
+} from '../../utils/callGithubApi';
 import { User } from './types';
 
-import parse from 'parse-link-header';
+// To if we have the full info on a user, we check if the `name` property
+// exists which is one of the properties that we get
+// when query for the full info of a user
+function existsFullUser(users: User[], login: string): boolean {
+  const user = users.find(u => u.login === login && u.hasOwnProperty('name'));
+  return !(user === undefined);
+}
 
-export const itemsFetchUsers: ActionCreator<
+export const usersFetch: ActionCreator<
   ThunkAction<Promise<UsersAction>, ApplicationState, void, UsersAction>
-> = () => {
+> = (since: string) => {
   return async (dispatch: Dispatch): Promise<UsersAction> => {
-    try{
-        dispatch(fetchRequest());
-        const response = await fetch('https://api.github.com/users');
-        if (!response.ok) {
-          throw Error(response.statusText);
-        }
-        // const linkHeader = response.headers.get('link') || '';
-        // const parseResults = parse(linkHeader);
-        // console.log(parseResults)
+    try {
+      dispatch(fetchUsersRequest());
 
-        const users: User[] =  await response.json();
-        return dispatch(fetchSuccess(users));
-    }catch(err){
-        return dispatch(fetchError(err.message));
+      const response: IGithubAPIUsersResponse = await callGithubApiUsers(since);
+      return dispatch(fetchUsersSuccess(response));
+    } catch (err) {
+      return dispatch(fetchUsersError(err.message));
+    }
+  };
+};
+
+export const userFetch: ActionCreator<
+  ThunkAction<Promise<UsersAction>, ApplicationState, void, UsersAction>
+> = (login: string) => {
+  return async (dispatch: Dispatch, getState): Promise<UsersAction> => {
+    try {
+      // check if the user exists with their full info before fetching them.
+      const users: User[] = getState().users.data;
+
+      if (existsFullUser(users, login)) {
+        return dispatch(noOp());
+      }
+
+      dispatch(fetchUserRequest());
+
+      const response: User = await callGithubApiUser(login);
+      return dispatch(fetchUserSuccess(response));
+    } catch (err) {
+      return dispatch(fetchUserError(err.message));
     }
   };
 };

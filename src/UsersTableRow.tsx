@@ -24,15 +24,18 @@ class DictionariesTableRow extends Component<allProps> {
   }
 
   render() {
+    const {login, avatar_url} = this.user;
     return (
       <TableRow>
         <TableCell component="th" scope="row">
           {this.props.idx}
         </TableCell>
         <TableCell>
-          <img className="avatar-img" src={this.user.avatar_url} alt="" />
+          <Link to={`/users/${login}`}>
+            <img className="avatar-img" src={avatar_url} alt={`${login} avatar`} />
+          </Link>
         </TableCell>
-        <TableCell>{this.user.login}</TableCell>
+        <TableCell>{login}</TableCell>
       </TableRow>
     );
   }

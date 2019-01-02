@@ -52,8 +52,8 @@ const UsersTable = (props: AllProps) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, idx) => {
-            return <UsersTableRow row={row} idx={idx + 1} key={row.id} />;
+          {rows.map((user, idx) => {
+            return <UsersTableRow row={user} idx={idx + 1} key={user.id} />;
           })}
         </TableBody>
       </Table>
