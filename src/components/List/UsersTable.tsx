@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import createStyles from '@material-ui/core/styles/createStyles';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import Paper from '@material-ui/core/Paper';
-import { User } from './store/users/types';
+import { User } from '../../store/users/types';
 import UsersTableRow from './UsersTableRow';
 
 const styles = (theme: Theme) =>
@@ -40,20 +40,20 @@ const UsersTable = (props: AllProps) => {
     <Paper className={classes.root}>
       <Table className={classes.table}>
         <colgroup>
-          <col width="50px" />
+          <col width="120px" />
           <col width="120px" />
           <col />
         </colgroup>
         <TableHead>
           <TableRow>
-            <TableCell>#</TableCell>
-            <TableCell>Avatar</TableCell>
-            <TableCell>Login</TableCell>
+            <TableCell component="th" scope="row">User id</TableCell>
+            <TableCell component="th" scope="row">Avatar</TableCell>
+            <TableCell component="th" scope="row">Login</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((user, idx) => {
-            return <UsersTableRow row={user} idx={idx + 1} key={user.id} />;
+            return <UsersTableRow row={user} key={user.id} />;
           })}
         </TableBody>
       </Table>

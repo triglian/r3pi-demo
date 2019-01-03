@@ -3,13 +3,12 @@ import { withStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { Link } from 'react-router-dom';
-import { User } from './store/users/types';
+import { User } from '../../store/users/types';
 
 import './UsersTableRow.css';
 
 interface ownProps {
   row: User;
-  idx: number;
 }
 
 type allProps = ownProps;
@@ -24,11 +23,11 @@ class DictionariesTableRow extends Component<allProps> {
   }
 
   render() {
-    const {login, avatar_url} = this.user;
+    const {id, login, avatar_url} = this.user;
     return (
       <TableRow>
-        <TableCell component="th" scope="row">
-          {this.props.idx}
+        <TableCell scope="row">
+          {id}
         </TableCell>
         <TableCell>
           <Link to={`/users/${login}`}>

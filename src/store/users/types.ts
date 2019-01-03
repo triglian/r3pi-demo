@@ -50,6 +50,7 @@ export interface UsersState {
   readonly data: User[],
   readonly loading: boolean,
   readonly error: Error | void,
-  pagePrevUserId: string,
-  pageNextUserId: string,
+  readonly lastSuccessfullSinceId: string, // we need this for pagination
+  readonly pagePrevUserId: string,
+  readonly pageNextUserId: string,
 }

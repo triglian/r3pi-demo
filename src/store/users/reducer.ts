@@ -5,6 +5,7 @@ export const initialState: UsersState = {
   data: [],
   loading: false,
   error: undefined,
+  lastSuccessfullSinceId: '',
   pagePrevUserId: '',
   pageNextUserId: ''
 };
@@ -35,6 +36,7 @@ const reducer: Reducer<UsersState> = (state = initialState, action) => {
         ...state,
         loading: false,
         data: action.payload.users,
+        lastSuccessfullSinceId: action.payload.since,
         pagePrevUserId: action.payload.pagePrevUserId,
         pageNextUserId: action.payload.pageNextUserId
       };

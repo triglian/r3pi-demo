@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import UsersListPage from './UsersListPage';
-import UserViewPage from './UserViewPage';
+import UsersListPage from './List/UsersListPage';
+import UserViewPage from './View/UserViewPage';
 
-import NotFoundPage from './NotFoundPage';
+import NotFoundPage from '../NotFoundPage';
 import './App.css';
 
-
-interface IAppProps{
-  classes: any
+interface IAppProps {
+  classes: any;
 }
 
 class App extends Component {
@@ -25,11 +24,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={UsersListPage} />
           <Route exact path="/users/" component={UsersListPage} />
-          <Route
-            exact
-            path="/users/:userlogin"
-            component={UserViewPage}
-          />
+          <Route exact path="/users/:userlogin" component={UserViewPage} />
           <Route component={NotFoundPage} />
         </Switch>
       </div>

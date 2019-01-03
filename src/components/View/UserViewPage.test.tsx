@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import UsersListPage from './UsersListPage';
+import UserViewPage from './UserViewPage';
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 import { createShallow } from '@material-ui/core/test-utils';
@@ -14,9 +14,9 @@ const initialState = {
 };
 const store = mockStore(initialState);
 
-const UsersListPageWithRouter = withRouter(UsersListPage);
+const UserViewPageWithRouter = withRouter(UserViewPage);
 
-describe('<UsersListPage />', () => {
+describe('<UserViewPage />', () => {
   describe('render()', () => {
     let shallow: Function;
 
@@ -27,21 +27,20 @@ describe('<UsersListPage />', () => {
     it('renders without crashing', () => {
       const wrapper = shallow(
         <MemoryRouter>
-          <UsersListPageWithRouter />
+          <UserViewPageWithRouter user={undefined} dispatch={()=>{}}/>
         </MemoryRouter>,
         { context: { store } }
       );
     });
 
-    it('has the right child nodes', () => {
+    it('shows a loading message when there is no user', () => {
       const wrapper = shallow(
         <MemoryRouter>
-          <UsersListPageWithRouter />
+          <UserViewPageWithRouter user={undefined} dispatch={()=>{}}/>
         </MemoryRouter>,
         { context: { store } }
       );
-      expect(wrapper.find('header')).toHaveLength(1);
-      expect(wrapper.find('WithStyles(UsersTable)')).toHaveLength(1);
+      expect(wrapper.find('div.loading-msg')).toHaveLength(1);
     });
   });
 });

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { shallow } from 'enzyme';
 import Root from './Root';
 import configureStore from 'redux-mock-store';
-import { initialState, ApplicationState } from './store';
+import { initialState, ApplicationState } from '../store';
 import { MockStoreCreator, MockStoreEnhanced } from 'redux-mock-store';
 import createMockStore from 'redux-mock-store';
 

@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import _ from 'lodash';
 import './UserViewPage.css';
-import { ApplicationState } from './store';
+import { ApplicationState } from '../../store';
 import { RouteComponentProps } from 'react-router';
-import { User } from './store/users/types';
+import { User } from '../../store/users/types';
 import UserDetails from './UserDetails';
-import { userFetch } from './store/users/thunks';
-import { UsersAction } from './store/users/actions';
+import { userFetch } from '../../store/users/thunks';
+import { UsersAction } from '../../store/users/actions';
 
 interface PropsFromRedux {
   dispatch: ThunkDispatch<ApplicationState, any, UsersAction>;
@@ -52,7 +52,7 @@ class UserViewPage extends Component<allProps, ApplicationState> {
     if (this.props.user) {
       content = <UserDetails user={this.props.user} />;
     } else {
-      content = <div>Loading</div>;
+      content = <div className="loading-msg">Loading</div>;
     }
     return <div>{content}</div>;
   }

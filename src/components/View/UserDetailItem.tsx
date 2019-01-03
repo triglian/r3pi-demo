@@ -15,7 +15,8 @@ export default function UserDetailItem(props:OwnProps){
   const {field, value} = props.item;
   let valueMarkup;
 
-  if(field.endsWith('_url')){
+  // all urls in the user github API end with URL
+  if(field.endsWith('url')){
     valueMarkup= <a href={value as string} target="_blank">{value}</a>
   }else{
     valueMarkup = value;
