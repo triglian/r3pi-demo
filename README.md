@@ -12,3 +12,7 @@ The app is organised into two main containers: List (component: `UsersListPage.t
 The application is beased on [create-react-app](https://github.com/facebook/create-react-app) uses [material ui react components](https://material-ui.com/) for the tables and buttons.
 
 There are also some pretty basic tests that could definitely be improved :-)
+
+## Continuous Integration
+
+On every commit the application tests are run on [travis](https://travis-ci.org/triglian/r3pi-demo) and then it is deployed as a Github user page at [https://triglian.github.io/r3pi-demo/](https://triglian.github.io/r3pi-demo/) .
