@@ -58,6 +58,16 @@ class UserListPage extends Component<allProps> {
     this.unlisten();
   }
 
+  componentDidUpdate(prevProps: allProps){
+    if(prevProps.users.length > 0 && this.props.users.length > 0){
+      if(prevProps.users[0].id !== this.props.users[0].id){
+        // make sure we scroll to the start of the page when the users
+        // change
+        window.scrollTo(0,0);
+      }
+    }
+  }
+
   render() {
     return (
       <div>

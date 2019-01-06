@@ -5,6 +5,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Link } from 'react-router-dom';
 
+import './UsersPagination.css';
+
 interface ownProps {
   since: string;
   pagePrevUserId: string;
@@ -22,7 +24,7 @@ export default class UsersPagination extends Component<allProps> {
     // disable button only if we have already requested the start page right before
     const prevPageButtonDisabled: boolean =
       this.props.pagePrevUserId === '' && this.props.since === '';
-      
+
     return (
       <div className="pagination-container">
         {/* The reason we pass the component as a function is incompatibility
